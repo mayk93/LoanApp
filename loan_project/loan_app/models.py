@@ -9,6 +9,8 @@ sector and a synopsis of what it does) and how much they are looking to borrow.
 
 
 class Loan(models.Model):
+    owner = models.ForeignKey('auth.User', related_name='loans', on_delete=models.CASCADE)
+
     created = models.DateTimeField(auto_now_add=True)
     company = models.CharField(max_length=100)
     sector = models.CharField(max_length=100)
