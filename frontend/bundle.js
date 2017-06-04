@@ -23720,7 +23720,9 @@
 
 	var server = "http://localhost:8000/";
 	var _server = "https://localhost:8000/";
-	var login_endpoint = "api-auth/login/";
+	var login_endpoint = "api-token-auth/";
+	// let login_endpoint = "loans/";
+
 
 	function login_liaison(data) {
 	    return {

@@ -1,8 +1,7 @@
 import request from 'superagent';
 
 let server = "http://localhost:8000/";
-let _server = "https://localhost:8000/";
-let login_endpoint = "api-auth/login/";
+let login_endpoint = "api-token-auth/";
 
 
 function login_liaison(data) {

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from models import Loan
 from serializers import LoanSerializer, UserSerializer
-from permisions import IsOwnerOrReadOnly
+from permisions import IsOwnerSuperUserOrReadOnly
 from rest_framework import permissions, renderers, viewsets
 
 from rest_framework.decorators import api_view, detail_route
@@ -13,7 +13,7 @@ class LoanViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
+                          IsOwnerSuperUserOrReadOnly,)
 
     @detail_route(renderer_classes=[renderers.StaticHTMLRenderer])
     def synopsis(self, request, *args, **kwargs):
