@@ -3,17 +3,20 @@ from rest_framework import serializers
 from models import Loan
 
 
-class LoanSerializer(serializers.ModelSerializer):
+class LoanSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    synopsis = serializers.HyperlinkedIdentityField(view_name='loan-synopsis', format='html')
 
     class Meta:
         model = Loan
-        fields = ('id', 'company', 'sector', 'synopsis', 'amount', 'approved')
+        fields = ('url', 'id', 'owner',
+                  'company',
+                  'sector', 'synopsis', 'amount', 'approved')
 
 
-class UserSerializer(serializers.ModelSerializer):
-    loans = serializers.PrimaryKeyRelatedField(many=True, queryset=Loan.objects.all())
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    loans = serializers.HyperlinkedRelatedField(many=True, view_name='loan-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'loans')
+        fields = ('url', 'id', 'username', 'loans')
