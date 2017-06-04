@@ -5,7 +5,7 @@
 
 export default function (state = "", action) {
     switch (action.type) {
-        case "LOGIN":
+        case "TOKEN":
             return action.payload;
         default:
             return state;

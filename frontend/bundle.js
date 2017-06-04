@@ -23551,9 +23551,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _loan_app = __webpack_require__(217);
+	var _loan_app_unlock = __webpack_require__(217);
 
-	var _loan_app2 = _interopRequireDefault(_loan_app);
+	var _loan_app_unlock2 = _interopRequireDefault(_loan_app_unlock);
 
 	var _loan_app_jumbotron = __webpack_require__(227);
 
@@ -23588,7 +23588,7 @@
 	                null,
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(_loan_app_jumbotron2.default, null),
-	                _react2.default.createElement(_loan_app2.default, null),
+	                _react2.default.createElement(_loan_app_unlock2.default, null),
 	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(_loan_app_footer2.default, null)
 	            );
@@ -23637,22 +23637,43 @@
 	/* Actions */
 
 
-	var LoanApp = function (_Component) {
-	    _inherits(LoanApp, _Component);
+	var LoanAppUnlock = function (_Component) {
+	    _inherits(LoanAppUnlock, _Component);
 
-	    function LoanApp(props) {
-	        _classCallCheck(this, LoanApp);
+	    function LoanAppUnlock(props) {
+	        _classCallCheck(this, LoanAppUnlock);
 
-	        var _this = _possibleConstructorReturn(this, (LoanApp.__proto__ || Object.getPrototypeOf(LoanApp)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (LoanAppUnlock.__proto__ || Object.getPrototypeOf(LoanAppUnlock)).call(this, props));
 
 	        _this.state = {
 	            username: "",
-	            password: ""
+	            password: "",
+	            button_color: "btn btn-primary wide"
 	        };
 	        return _this;
 	    }
 
-	    _createClass(LoanApp, [{
+	    _createClass(LoanAppUnlock, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.token == "") {
+	                // No change case
+	                this.setState({
+	                    button_color: "btn btn-primary wide"
+	                });
+	            } else if (nextProps.token == "ERROR") {
+	                // Red / Failed case
+	                this.setState({
+	                    button_color: "btn btn-danger wide"
+	                });
+	            } else {
+	                // Green / Success case
+	                this.setState({
+	                    button_color: "btn btn-success wide"
+	                });
+	            }
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
@@ -23660,46 +23681,64 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement('input', { type: 'text', onChange: function onChange(event) {
-	                        _this2.setState({ username: event.target.value });
-	                    } }),
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement('input', { type: 'password', onChange: function onChange(event) {
-	                        _this2.setState({ password: event.target.value });
-	                    } }),
-	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
-	                    'button',
-	                    { onClick: function onClick() {
-	                            _this2.props.login(_this2.state);
-	                        } },
-	                    'Login'
+	                    'div',
+	                    { className: 'input-group input-group-sm' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon', id: 'sizing-addon3' },
+	                        _react2.default.createElement('i', { className: 'fa fa-user', 'aria-hidden': 'true' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Username', 'aria-describedby': 'sizing-addon3',
+	                        onChange: function onChange(event) {
+	                            _this2.setState({ username: event.target.value });
+	                        }
+	                    })
 	                ),
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'You sent: ',
-	                    this.props.login_result
-	                )
+	                    'div',
+	                    { className: 'input-group input-group-sm' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon', id: 'sizing-addon3' },
+	                        _react2.default.createElement('i', { className: 'fa fa-key', 'aria-hidden': 'true' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'password', className: 'form-control',
+	                        placeholder: 'Username', 'aria-describedby': 'sizing-addon3',
+	                        onChange: function onChange(event) {
+	                            _this2.setState({ password: event.target.value });
+	                        }
+	                    })
+	                ),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'button', className: this.state.button_color,
+	                        onClick: function onClick() {
+	                            _this2.props.get_token(_this2.state);
+	                        } },
+	                    'Unlock the API'
+	                ),
+	                _react2.default.createElement('br', null)
 	            );
 	        }
 	    }]);
 
-	    return LoanApp;
+	    return LoanAppUnlock;
 	}(_react.Component);
 
 	function mapStateToProps(state) {
 	    return {
-	        login_result: state.login_result
+	        token: state.token
 	    };
 	}
 
 	function mapDispatchToProps(dispatch) {
-	    return (0, _redux.bindActionCreators)({ login: _index.login }, dispatch);
+	    return (0, _redux.bindActionCreators)({ get_token: _index.get_token }, dispatch);
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanApp);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanAppUnlock);
 
 /***/ }),
 /* 218 */
@@ -23710,7 +23749,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.login = login;
+	exports.get_token = get_token;
 
 	var _superagent = __webpack_require__(219);
 
@@ -23719,31 +23758,26 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var server = "http://localhost:8000/";
-	var _server = "https://localhost:8000/";
 	var login_endpoint = "api-token-auth/";
-	// let login_endpoint = "loans/";
-
 
 	function login_liaison(data) {
 	    return {
-	        type: "LOGIN",
+	        type: "TOKEN",
 	        payload: data
 	    };
 	}
 
-	function login(data) {
-	    console.log("Sending ", data, " to login endpoint.");
+	function get_token(data) {
 	    return function (dispatch) {
 	        var login_request = _superagent2.default.post(server + login_endpoint);
 	        login_request.send(data);
 	        login_request.end(function (error, response) {
 	            if (error == null) {
-	                console.log("Success, made a POST to the login endpoint: ", response);
-	                dispatch(login_liaison(response.body));
+	                dispatch(login_liaison(response.body.token));
 	            } else {
-	                console.log("Failed, did not make a POST to the login endpoint: ", error);
+	                console.log("Failed to get token: ", error);
 	                return dispatch({
-	                    type: "LOGIN",
+	                    type: "TOKEN",
 	                    payload: "ERROR"
 	                });
 	            }
@@ -25785,6 +25819,11 @@
 	                        'h1',
 	                        null,
 	                        'Loan app'
+	                    ),
+	                    _react2.default.createElement(
+	                        'small',
+	                        null,
+	                        'A simple manager that uses Django REST framework'
 	                    )
 	                ),
 	                _react2.default.createElement('hr', null)
@@ -25871,14 +25910,14 @@
 
 	var _redux = __webpack_require__(175);
 
-	var _reducer_login = __webpack_require__(230);
+	var _reducer_token = __webpack_require__(230);
 
-	var _reducer_login2 = _interopRequireDefault(_reducer_login);
+	var _reducer_token2 = _interopRequireDefault(_reducer_token);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
-	    login_result: _reducer_login2.default
+	    token: _reducer_token2.default
 	});
 
 	exports.default = rootReducer;
@@ -25898,7 +25937,7 @@
 	    var action = arguments[1];
 
 	    switch (action.type) {
-	        case "LOGIN":
+	        case "TOKEN":
 	            return action.payload;
 	        default:
 	            return state;

@@ -6,25 +6,23 @@ let login_endpoint = "api-token-auth/";
 
 function login_liaison(data) {
     return {
-        type: "LOGIN",
+        type: "TOKEN",
         payload: data
     };
 }
 
 
-export function login(data) {
-    console.log("Sending ", data, " to login endpoint.");
+export function get_token(data) {
     return function(dispatch) {
         let login_request = request.post(server + login_endpoint);
         login_request.send(data);
         login_request.end((error, response) => {
             if (error == null) {
-                console.log("Success, made a POST to the login endpoint: ", response);
-                dispatch(login_liaison(response.body));
+                dispatch(login_liaison(response.body.token));
             } else {
-                console.log("Failed, did not make a POST to the login endpoint: ", error);
+                console.log("Failed to get token: ", error);
                 return dispatch({
-                    type: "LOGIN",
+                    type: "TOKEN",
                     payload: "ERROR"
                 });
             }
