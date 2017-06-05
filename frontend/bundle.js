@@ -77,7 +77,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _reducers = __webpack_require__(229);
+	var _reducers = __webpack_require__(232);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -23551,15 +23551,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _loan_app_unlock = __webpack_require__(217);
+	var _loan_app = __webpack_require__(217);
+
+	var _loan_app2 = _interopRequireDefault(_loan_app);
+
+	var _loan_app_unlock = __webpack_require__(229);
 
 	var _loan_app_unlock2 = _interopRequireDefault(_loan_app_unlock);
 
-	var _loan_app_jumbotron = __webpack_require__(227);
+	var _loan_app_jumbotron = __webpack_require__(230);
 
 	var _loan_app_jumbotron2 = _interopRequireDefault(_loan_app_jumbotron);
 
-	var _loan_app_footer = __webpack_require__(228);
+	var _loan_app_footer = __webpack_require__(231);
 
 	var _loan_app_footer2 = _interopRequireDefault(_loan_app_footer);
 
@@ -23589,6 +23593,7 @@
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(_loan_app_jumbotron2.default, null),
 	                _react2.default.createElement(_loan_app_unlock2.default, null),
+	                _react2.default.createElement(_loan_app2.default, null),
 	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(_loan_app_footer2.default, null)
 	            );
@@ -23620,7 +23625,15 @@
 
 	var _redux = __webpack_require__(175);
 
-	var _index = __webpack_require__(218);
+	__webpack_require__(218);
+
+	var _loan_app_list_loans = __webpack_require__(227);
+
+	var _loan_app_list_loans2 = _interopRequireDefault(_loan_app_list_loans);
+
+	var _loan_app_new_loan = __webpack_require__(228);
+
+	var _loan_app_new_loan2 = _interopRequireDefault(_loan_app_new_loan);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23628,7 +23641,11 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* React */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by michael on 05/06/2017.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+	/* React */
 
 
 	/* Redux */
@@ -23637,95 +23654,84 @@
 	/* Actions */
 
 
-	var LoanAppUnlock = function (_Component) {
-	    _inherits(LoanAppUnlock, _Component);
+	/* Containers */
 
-	    function LoanAppUnlock(props) {
-	        _classCallCheck(this, LoanAppUnlock);
 
-	        var _this = _possibleConstructorReturn(this, (LoanAppUnlock.__proto__ || Object.getPrototypeOf(LoanAppUnlock)).call(this, props));
+	var LoanApp = function (_Component) {
+	    _inherits(LoanApp, _Component);
+
+	    function LoanApp(props) {
+	        _classCallCheck(this, LoanApp);
+
+	        var _this = _possibleConstructorReturn(this, (LoanApp.__proto__ || Object.getPrototypeOf(LoanApp)).call(this, props));
 
 	        _this.state = {
-	            username: "",
-	            password: "",
-	            button_color: "btn btn-primary wide"
+	            current_api_view: 0
+
 	        };
+
+	        _this.api_views = {
+	            0: "",
+	            1: _react2.default.createElement(_loan_app_list_loans2.default, null),
+	            2: _react2.default.createElement(_loan_app_new_loan2.default, null)
+	        };
+
+	        _this.api_unlocked.bind(_this);
 	        return _this;
 	    }
 
-	    _createClass(LoanAppUnlock, [{
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            if (nextProps.token == "") {
-	                // No change case
-	                this.setState({
-	                    button_color: "btn btn-primary wide"
-	                });
-	            } else if (nextProps.token == "ERROR") {
-	                // Red / Failed case
-	                this.setState({
-	                    button_color: "btn btn-danger wide"
-	                });
-	            } else {
-	                // Green / Success case
-	                this.setState({
-	                    button_color: "btn btn-success wide"
-	                });
-	            }
+	    _createClass(LoanApp, [{
+	        key: 'api_unlocked',
+	        value: function api_unlocked() {
+	            return this.props.token != "ERROR" && this.props.token.length > 0;
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
 
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
+	            if (this.api_unlocked()) {
+	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'input-group input-group-sm' },
+	                    null,
 	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'input-group-addon', id: 'sizing-addon3' },
-	                        _react2.default.createElement('i', { className: 'fa fa-user', 'aria-hidden': 'true' })
+	                        'div',
+	                        { className: '_flex spaced' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { type: 'button spaced btn-default gray',
+	                                style: { margin: "10px", backgroundColor: "#eceeef" },
+	                                className: 'btn btn-default',
+	                                onClick: function onClick() {
+	                                    _this2.setState({
+	                                        current_api_view: 1
+	                                    });
+	                                } },
+	                            'View loans'
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { type: 'button spaced btn-default gray',
+	                                style: { margin: "10px", backgroundColor: "#eceeef" },
+	                                className: 'btn btn-default',
+	                                onClick: function onClick() {
+	                                    _this2.setState({
+	                                        current_api_view: 2
+	                                    });
+	                                } },
+	                            'New loan'
+	                        )
 	                    ),
-	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Username', 'aria-describedby': 'sizing-addon3',
-	                        onChange: function onChange(event) {
-	                            _this2.setState({ username: event.target.value });
-	                        }
-	                    })
-	                ),
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'input-group input-group-sm' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'input-group-addon', id: 'sizing-addon3' },
-	                        _react2.default.createElement('i', { className: 'fa fa-key', 'aria-hidden': 'true' })
-	                    ),
-	                    _react2.default.createElement('input', { type: 'password', className: 'form-control',
-	                        placeholder: 'Username', 'aria-describedby': 'sizing-addon3',
-	                        onChange: function onChange(event) {
-	                            _this2.setState({ password: event.target.value });
-	                        }
-	                    })
-	                ),
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'button', className: this.state.button_color,
-	                        onClick: function onClick() {
-	                            _this2.props.get_token(_this2.state);
-	                        } },
-	                    'Unlock the API'
-	                ),
-	                _react2.default.createElement('br', null)
-	            );
+	                    _react2.default.createElement('hr', null),
+	                    this.api_views[this.state.current_api_view]
+	                );
+	            } else {
+	                return _react2.default.createElement('div', null);
+	            }
 	        }
 	    }]);
 
-	    return LoanAppUnlock;
+	    return LoanApp;
 	}(_react.Component);
 
 	function mapStateToProps(state) {
@@ -23735,10 +23741,10 @@
 	}
 
 	function mapDispatchToProps(dispatch) {
-	    return (0, _redux.bindActionCreators)({ get_token: _index.get_token }, dispatch);
+	    return (0, _redux.bindActionCreators)({}, dispatch);
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanAppUnlock);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanApp);
 
 /***/ }),
 /* 218 */
@@ -23750,6 +23756,7 @@
 	    value: true
 	});
 	exports.get_token = get_token;
+	exports.api_get_loan_list = api_get_loan_list;
 
 	var _superagent = __webpack_require__(219);
 
@@ -23759,6 +23766,7 @@
 
 	var server = "http://localhost:8000/";
 	var login_endpoint = "api-token-auth/";
+	var loan_list_endpoint = "loans/";
 
 	function login_liaison(data) {
 	    return {
@@ -23786,6 +23794,29 @@
 	}
 
 	/* ----- */
+
+	function api_get_loan_list(token) {
+	    return function (dispatch) {
+	        var loan_list_request = _superagent2.default.get(server + loan_list_endpoint);
+	        // loan_list_request.set("WWW-Authenticate", "Token");
+	        loan_list_request.set("Authorization", token);
+	        loan_list_request.end(function (error, response) {
+	            if (error == null) {
+	                console.log("Success getting list: ", response.body.results);
+	                return dispatch({
+	                    type: "LOAN_LIST",
+	                    payload: response.body.results
+	                });
+	            } else {
+	                console.log("Failed to get loan list: ", error);
+	                return dispatch({
+	                    type: "LOAN_LIST",
+	                    payload: []
+	                });
+	            }
+	        });
+	    };
+	}
 
 /***/ }),
 /* 219 */
@@ -25789,6 +25820,339 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(160);
+
+	var _redux = __webpack_require__(175);
+
+	var _index = __webpack_require__(218);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by michael on 05/06/2017.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+	/* React */
+
+
+	/* Redux */
+
+
+	/* Actions */
+
+
+	var LoanAppListLoans = function (_Component) {
+	    _inherits(LoanAppListLoans, _Component);
+
+	    function LoanAppListLoans(props) {
+	        _classCallCheck(this, LoanAppListLoans);
+
+	        return _possibleConstructorReturn(this, (LoanAppListLoans.__proto__ || Object.getPrototypeOf(LoanAppListLoans)).call(this, props));
+	    }
+
+	    _createClass(LoanAppListLoans, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            this.props.api_get_loan_list(this.props.token);
+	        }
+	    }, {
+	        key: 'get_loan_list',
+	        value: function get_loan_list() {
+	            return this.props.loan_list.map(function (loan) {
+	                console.log("Trying to map: ", loan);
+	                return _react2.default.createElement(
+	                    'li',
+	                    { className: 'list-group-item', key: loan.id },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading' },
+	                        loan.company
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-body' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            "Your requested a loan for " + loan.amount.toString() + " £."
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: loan.approved ? "alert alert-success" : "alert alert-danger", role: 'alert' },
+	                        loan.approved ? "Your loan has been approved!" : "Your loan has been rejected!"
+	                    )
+	                );
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var loan_list = this.get_loan_list();
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'ul',
+	                    { className: 'list-group' },
+	                    loan_list
+	                )
+	            );
+	        }
+	    }]);
+
+	    return LoanAppListLoans;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	    return {
+	        token: state.token,
+	        loan_list: state.loan_list
+	    };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	    return (0, _redux.bindActionCreators)({ api_get_loan_list: _index.api_get_loan_list }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanAppListLoans);
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _redux = __webpack_require__(175);
+
+	__webpack_require__(218);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by michael on 05/06/2017.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+	/* React */
+
+
+	/* Redux */
+
+
+	/* Actions */
+
+
+	var LoanAppNewLoan = function (_Component) {
+	    _inherits(LoanAppNewLoan, _Component);
+
+	    function LoanAppNewLoan(props) {
+	        _classCallCheck(this, LoanAppNewLoan);
+
+	        return _possibleConstructorReturn(this, (LoanAppNewLoan.__proto__ || Object.getPrototypeOf(LoanAppNewLoan)).call(this, props));
+	    }
+
+	    _createClass(LoanAppNewLoan, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                'Here you will be able to make a new loan soon'
+	            );
+	        }
+	    }]);
+
+	    return LoanAppNewLoan;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	    return {
+	        token: state.token
+	    };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	    return (0, _redux.bindActionCreators)({}, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanAppNewLoan);
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _redux = __webpack_require__(175);
+
+	var _index = __webpack_require__(218);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* React */
+
+
+	/* Redux */
+
+
+	/* Actions */
+
+
+	var LoanAppUnlock = function (_Component) {
+	    _inherits(LoanAppUnlock, _Component);
+
+	    function LoanAppUnlock(props) {
+	        _classCallCheck(this, LoanAppUnlock);
+
+	        var _this = _possibleConstructorReturn(this, (LoanAppUnlock.__proto__ || Object.getPrototypeOf(LoanAppUnlock)).call(this, props));
+
+	        _this.state = {
+	            username: "",
+	            password: "",
+	            button_color: "btn btn-primary wide"
+	        };
+	        return _this;
+	    }
+
+	    _createClass(LoanAppUnlock, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.token == "") {
+	                // No change case
+	                this.setState({
+	                    button_color: "btn btn-primary wide"
+	                });
+	            } else if (nextProps.token == "ERROR") {
+	                // Red / Failed case
+	                this.setState({
+	                    button_color: "btn btn-danger wide"
+	                });
+	            } else {
+	                // Green / Success case
+	                this.setState({
+	                    button_color: "btn btn-success wide"
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group input-group-sm' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon', id: 'sizing-addon3' },
+	                        _react2.default.createElement('i', { className: 'fa fa-user', 'aria-hidden': 'true' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Username', 'aria-describedby': 'sizing-addon3',
+	                        onChange: function onChange(event) {
+	                            _this2.setState({ username: event.target.value });
+	                        }
+	                    })
+	                ),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group input-group-sm' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon', id: 'sizing-addon3' },
+	                        _react2.default.createElement('i', { className: 'fa fa-key', 'aria-hidden': 'true' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'password', className: 'form-control',
+	                        placeholder: 'Username', 'aria-describedby': 'sizing-addon3',
+	                        onChange: function onChange(event) {
+	                            _this2.setState({ password: event.target.value });
+	                        }
+	                    })
+	                ),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'button', className: this.state.button_color,
+	                        onClick: function onClick() {
+	                            _this2.props.get_token(_this2.state);
+	                        } },
+	                    'Unlock the API'
+	                ),
+	                _react2.default.createElement('br', null)
+	            );
+	        }
+	    }]);
+
+	    return LoanAppUnlock;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	    return {
+	        token: state.token
+	    };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	    return (0, _redux.bindActionCreators)({ get_token: _index.get_token }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanAppUnlock);
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25837,7 +26201,7 @@
 	exports.default = App;
 
 /***/ }),
-/* 228 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25899,7 +26263,7 @@
 	exports.default = App;
 
 /***/ }),
-/* 229 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25910,20 +26274,25 @@
 
 	var _redux = __webpack_require__(175);
 
-	var _reducer_token = __webpack_require__(230);
+	var _reducer_token = __webpack_require__(233);
 
 	var _reducer_token2 = _interopRequireDefault(_reducer_token);
+
+	var _reducer_loan_list = __webpack_require__(234);
+
+	var _reducer_loan_list2 = _interopRequireDefault(_reducer_loan_list);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
-	    token: _reducer_token2.default
+	    token: _reducer_token2.default,
+	    loan_list: _reducer_loan_list2.default
 	});
 
 	exports.default = rootReducer;
 
 /***/ }),
-/* 230 */
+/* 233 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -25938,6 +26307,28 @@
 
 	    switch (action.type) {
 	        case "TOKEN":
+	            return action.payload;
+	        default:
+	            return state;
+	    }
+	};
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function () {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case "LOAN_LIST":
 	            return action.payload;
 	        default:
 	            return state;

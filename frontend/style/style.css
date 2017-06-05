@@ -1,3 +1,15 @@
 .wide {
     width: 100%;
 }
+
+.spaced {
+    margin: 10px;
+}
+
+.gray {
+    background-color: #eceeef;
+}
+
+._flex {
+    flex: 1;
+}
