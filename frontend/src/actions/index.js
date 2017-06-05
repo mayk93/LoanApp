@@ -38,7 +38,7 @@ export function get_token(data) {
 export function api_get_loan_list(token) {
     return function(dispatch) {
         let loan_list_request = request.get(server + loan_list_endpoint);
-        loan_list_request.set("Authorization", token);
+        loan_list_request.set("Authorization", "Token " + token);
         loan_list_request.end((error, response) => {
             if (error == null) {
                 console.log("Success getting list: ", response.body.results);
@@ -61,7 +61,7 @@ export function new_loan(data, token) {
     return function(dispatch) {
         let new_loan_request = request.post(server + new_loan_endpoint);
         new_loan_request.send(data);
-        new_loan_request.set("Authorization", token);
+        new_loan_request.set("Authorization", "Token " + token);
         new_loan_request.end((error, response) => {
             if (error == null) {
                 console.log("New loan response: ", response);

@@ -23800,7 +23800,7 @@
 	function api_get_loan_list(token) {
 	    return function (dispatch) {
 	        var loan_list_request = _superagent2.default.get(server + loan_list_endpoint);
-	        loan_list_request.set("Authorization", token);
+	        loan_list_request.set("Authorization", "Token " + token);
 	        loan_list_request.end(function (error, response) {
 	            if (error == null) {
 	                console.log("Success getting list: ", response.body.results);
@@ -23823,7 +23823,7 @@
 	    return function (dispatch) {
 	        var new_loan_request = _superagent2.default.post(server + new_loan_endpoint);
 	        new_loan_request.send(data);
-	        new_loan_request.set("Authorization", token);
+	        new_loan_request.set("Authorization", "Token " + token);
 	        new_loan_request.end(function (error, response) {
 	            if (error == null) {
 	                console.log("New loan response: ", response);
