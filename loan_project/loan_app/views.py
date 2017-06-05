@@ -5,16 +5,14 @@ from serializers import LoanSerializer, UserSerializer
 from permisions import IsOwnerSuperUserOrReadOnly
 from rest_framework import permissions, renderers, viewsets
 
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 
-class LoanViewSet(viewsets.ModelViewSet):
+class LoanViewSet(viewsets.ModelViewSet, ):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
-    # authentication_classes = (TokenAuthentication, )
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerSuperUserOrReadOnly,)
 

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'loan_app.apps.LoanAppConfig',
+    'log_requests.apps.LogRequestsConfig'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'log_requests.middleware.request_logging_middelware'
 ]
 
 CORS_ORIGIN_WHITELIST = (
