@@ -93,7 +93,7 @@ class LoanAppNewLoan extends Component {
 
                 <br/>
 
-                <button type="button" className="btn wide"
+                <button type="button" className="btn btn-success wide"
                         onClick={() => {this.props.new_loan(this.state, this.props.token)}}>
                     Apply for a loan!
                 </button>

@@ -14,7 +14,7 @@ from rest_framework.reverse import reverse
 class LoanViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
-    authentication_classes = (TokenAuthentication,)
+    # authentication_classes = (TokenAuthentication, )
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerSuperUserOrReadOnly,)
 

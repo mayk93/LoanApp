@@ -26137,7 +26137,7 @@
 	                    _react2.default.createElement('br', null),
 	                    _react2.default.createElement(
 	                        'button',
-	                        { type: 'button', className: 'btn wide',
+	                        { type: 'button', className: 'btn btn-success wide',
 	                            onClick: function onClick() {
 	                                _this2.props.new_loan(_this2.state, _this2.props.token);
 	                            } },
