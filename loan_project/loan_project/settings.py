@@ -66,6 +66,13 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
 )
 
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
 ROOT_URLCONF = 'loan_project.urls'
 
 TEMPLATES = [
@@ -115,13 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-REST_FRAMEWORK = {
-    'PAGE_SIZE': 10,
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    )
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

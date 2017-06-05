@@ -23768,6 +23768,7 @@
 	var server = "http://localhost:8000/";
 	var login_endpoint = "api-token-auth/";
 	var loan_list_endpoint = "loans/";
+	var new_loan_endpoint = "loans/";
 
 	function login_liaison(data) {
 	    return {
@@ -23799,7 +23800,6 @@
 	function api_get_loan_list(token) {
 	    return function (dispatch) {
 	        var loan_list_request = _superagent2.default.get(server + loan_list_endpoint);
-	        // loan_list_request.set("WWW-Authenticate", "Token");
 	        loan_list_request.set("Authorization", token);
 	        loan_list_request.end(function (error, response) {
 	            if (error == null) {
@@ -23819,7 +23819,28 @@
 	    };
 	}
 
-	function new_loan(data) {}
+	function new_loan(data, token) {
+	    return function (dispatch) {
+	        var new_loan_request = _superagent2.default.post(server + new_loan_endpoint);
+	        new_loan_request.send(data);
+	        new_loan_request.set("Authorization", token);
+	        new_loan_request.end(function (error, response) {
+	            if (error == null) {
+	                console.log("New loan response: ", response);
+	                dispatch({
+	                    type: "NEW_LOAN",
+	                    payload: "OK"
+	                });
+	            } else {
+	                console.log("Failed to apply for a new loan: ", error);
+	                return dispatch({
+	                    type: "NEW_LOAN",
+	                    payload: "ERROR"
+	                });
+	            }
+	        });
+	    };
+	}
 
 /***/ }),
 /* 219 */
@@ -26118,7 +26139,7 @@
 	                        'button',
 	                        { type: 'button', className: 'btn wide',
 	                            onClick: function onClick() {
-	                                _this2.props.new_loan(_this2.state);
+	                                _this2.props.new_loan(_this2.state, _this2.props.token);
 	                            } },
 	                        'Apply for a loan!'
 	                    ),
