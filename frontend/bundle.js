@@ -23757,6 +23757,7 @@
 	});
 	exports.get_token = get_token;
 	exports.api_get_loan_list = api_get_loan_list;
+	exports.new_loan = new_loan;
 
 	var _superagent = __webpack_require__(219);
 
@@ -23817,6 +23818,8 @@
 	        });
 	    };
 	}
+
+	function new_loan(data) {}
 
 /***/ }),
 /* 219 */
@@ -25878,7 +25881,7 @@
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            "Your requested a loan for " + loan.amount.toString() + " £."
+	                            "Your requested a loan for " + loan.amount.toString() + " GBP."
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -25941,7 +25944,7 @@
 
 	var _redux = __webpack_require__(175);
 
-	__webpack_require__(218);
+	var _index = __webpack_require__(218);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25968,16 +25971,159 @@
 	    function LoanAppNewLoan(props) {
 	        _classCallCheck(this, LoanAppNewLoan);
 
-	        return _possibleConstructorReturn(this, (LoanAppNewLoan.__proto__ || Object.getPrototypeOf(LoanAppNewLoan)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (LoanAppNewLoan.__proto__ || Object.getPrototypeOf(LoanAppNewLoan)).call(this, props));
+
+	        _this.state = {
+	            company: "",
+	            sector: "",
+	            synopsis: "",
+	            amount: 0
+	        };
+	        return _this;
 	    }
 
 	    _createClass(LoanAppNewLoan, [{
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                'Here you will be able to make a new loan soon'
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'input-group input-group-sm' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'input-group-addon', id: 'sizing-addon3' },
+	                            _react2.default.createElement('i', { className: 'fa fa-building', 'aria-hidden': 'true' })
+	                        ),
+	                        _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Company', 'aria-describedby': 'sizing-addon3',
+	                            onChange: function onChange(event) {
+	                                _this2.setState({ company: event.target.value });
+	                            }
+	                        })
+	                    ),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'input-group input-group-sm' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'input-group-addon', id: 'sizing-addon3' },
+	                            _react2.default.createElement('i', { className: 'fa fa-industry', 'aria-hidden': 'true' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'dropdown wide', style: { marginLeft: "5px" } },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'btn dropdown-toggle wide',
+	                                    style: { backgroundColor: "#eceeef", color: "black" },
+	                                    type: 'button',
+	                                    'data-toggle': 'dropdown' },
+	                                this.state.sector.length == 0 ? "Sector" : this.state.sector,
+	                                _react2.default.createElement('span', { className: 'caret' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'ul',
+	                                { className: 'dropdown-menu' },
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { onClick: function onClick() {
+	                                            _this2.setState({ sector: "IT" });
+	                                        } },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#' },
+	                                        'IT'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { onClick: function onClick() {
+	                                            _this2.setState({ sector: "Auto" });
+	                                        } },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#' },
+	                                        'Auto'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { onClick: function onClick() {
+	                                            _this2.setState({ sector: "Banking" });
+	                                        } },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#' },
+	                                        'Banking'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    { onClick: function onClick() {
+	                                            _this2.setState({ sector: "Bio Tech" });
+	                                        } },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: '#' },
+	                                        'Bio Tech'
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'input-group' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'input-group-addon' },
+	                            '\xA3'
+	                        ),
+	                        _react2.default.createElement('input', { type: 'number', className: 'form-control', 'aria-label': 'Amount (to the nearest dollar)',
+	                            onChange: function onChange(event) {
+	                                _this2.setState({ amount: event.target.value });
+	                            } }),
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'input-group-addon' },
+	                            '.00'
+	                        )
+	                    ),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'input-group input-group-sm' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'input-group-addon', id: 'sizing-addon3' },
+	                            _react2.default.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
+	                        ),
+	                        _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Why do you need this loan?',
+	                            'aria-describedby': 'sizing-addon3',
+	                            onChange: function onChange(event) {
+	                                _this2.setState({ synopsis: event.target.value });
+	                            }
+	                        })
+	                    ),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'button', className: 'btn wide',
+	                            onClick: function onClick() {
+	                                _this2.props.new_loan(_this2.state);
+	                            } },
+	                        'Apply for a loan!'
+	                    ),
+	                    _react2.default.createElement('br', null)
+	                )
 	            );
 	        }
 	    }]);
@@ -25992,7 +26138,7 @@
 	}
 
 	function mapDispatchToProps(dispatch) {
-	    return (0, _redux.bindActionCreators)({}, dispatch);
+	    return (0, _redux.bindActionCreators)({ new_loan: _index.new_loan }, dispatch);
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoanAppNewLoan);
@@ -26187,7 +26333,7 @@
 	                    _react2.default.createElement(
 	                        'small',
 	                        null,
-	                        'A simple manager that uses Django REST framework'
+	                        'A simple loan manager that uses Django REST framework'
 	                    )
 	                ),
 	                _react2.default.createElement('hr', null)

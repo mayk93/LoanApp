@@ -56,3 +56,7 @@ export function api_get_loan_list(token) {
         });
     }
 }
+
+export function new_loan(data) {
+
+}

@@ -12,7 +12,7 @@ export default class App extends Component {
             <div className="jumbotron small-jumbotron">
                 <div className="page-header">
                     <h1>Loan app</h1>
-                    <small>A simple manager that uses Django REST framework</small>
+                    <small>A simple loan manager that uses Django REST framework</small>
                 </div>
                 <hr/>
             </div>
